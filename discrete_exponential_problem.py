@@ -7,5 +7,10 @@ def power(A,n,p):
     root = power(A,n//2,p)
     return (root*root)%p
 
-print(power(435456,17,1000000))
-print(power(131072,28,1000000))
+#print(power(435456,17,1000000))
+a = 5
+p = 17
+q = 19
+r = 2344
+
+print(power(a,r,p*q))
