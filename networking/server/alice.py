@@ -22,7 +22,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     with conn:
         print('Connected by', addr)
         while True:
-            conn.sendall(bytes(p))
+            conn.sendall(p.to_bytes(16,'little'))
             B = s.recv(1024)
             A = calculation_one(a,p)
             conn.sendall(bytes(A))

@@ -18,7 +18,7 @@ def calculation_two(A,b):
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
-    p = (s.recv(1024)).decode('utf-8')
+    p = int.from_bytes((s.recv(1024)),"big")
     B = calculation_one(b,p)
     s.sendall(bytes(B))
     A = (s.recv(1024)).decode()
