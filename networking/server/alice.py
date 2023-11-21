@@ -1,8 +1,9 @@
 import socket
 from random import randint
+from time import sleep
 
 HOST = ''                 # Symbolic name meaning all available interfaces
-PORT = 50007              # Arbitrary non-privileged port
+PORT = 50009              # Arbitrary non-privileged port
 
 #a = randint((2**4),(2**6))
 a = 17
@@ -19,12 +20,18 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen(1)
     conn, addr = s.accept()
+    A = calculation_one(a,p)
     with conn:
         print('Connected by', addr)
-        while True:
-            conn.sendall(p.to_bytes(16,'little'))
-            B = s.recv(1024)
-            A = calculation_one(a,p)
-            conn.sendall(bytes(A))
-            key = calculation_two(B,a)
-            print(key)
+        conn.sendall(bytes(str(p),'utf-8'))
+        sleep(0.1)
+        conn.sendall(bytes(str(A),'utf-8'))
+        B = conn.recv(1024).decode('utf-8')
+        print(B)
+        key = calculation_two(B,a)
+
+print(key)
+
+
+#bytes(str(data), 'utf-8')
+#.decode('utf-8')
