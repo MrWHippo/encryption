@@ -12,8 +12,8 @@ p = 1000000
 def calculation_one(a,p):
     return ((2**(int(a)))%(int(p)))
 
-def calculation_two(B,a):
-    key = (int(B))**(int(a))
+def calculation_two(B,a,p):
+    key = ((int(B))**(int(a))%(int(p)))
     return key
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -27,11 +27,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         sleep(0.1)
         conn.sendall(bytes(str(A),'utf-8'))
         B = conn.recv(1024).decode('utf-8')
-        print(B)
-        key = calculation_two(B,a)
+        key = calculation_two(B,a,p)
 
-print(key)
-
-
-#bytes(str(data), 'utf-8')
-#.decode('utf-8')
+print("key:", key)
